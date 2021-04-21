@@ -1,0 +1,91 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>FLOWERS</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'librerias/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  {% comment %} <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> {% endcomment %}
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'librerias/dist/css/adminlte.min.css' %}  ">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <div class="col-lg-12 col-sm-12">
+      <img src="{% static 'logo.jpeg' %}" alt="Admin" class="img-fluid img-circle" style="width: 100px">
+    </div>
+    <div class="col-lg-12 col-sm-12 text-center">
+    </div>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">{{ title }}</p>
+
+      <form action="." method="post">
+        <input type="hidden" name="next" value="{{ next }}">
+        {% csrf_token %}
+        {% if form.errors %}
+          <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert"> x</button>
+            {% for error in form.non_field_errors %}
+              '{{ error }}'
+            {% endfor %}
+          </div>
+        {% endif %}
+        <div class="input-group mb-3">
+          {{ form.username|add_class:'form-control'|attr:'autocomplete:off'|attr:'placeholder:Ingrese su cédula' }}
+
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-id-card"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.password|add_class:'form-control'|attr:'autocomplete:off'|attr:'placeholder:Ingrese su contraseña' }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Iniciar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <!-- /.social-auth-links -->
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{% static 'librerias/plugins/jquery/jquery.min.js' %} "></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'librerias/plugins/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+<!-- AdminLTE App -->
+<script src="{% static 'librerias/dist/js/adminlte.min.js' %} "></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+  <div class="container d-flex align-items-center">
+    <div class="logo mr-auto">
+      <h1 class="text-light">
+        <a href="{% url 'inicio' %}"><span>San José Flowers</span></a>
+      </h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="{% url 'inicio' %}"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    </div>
+    
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li {% if request.path == '/' %} class="active" {% endif %} ><a href="{% url 'inicio' %}">Inicio</a></li>
+        <li {% if request.path == '/galeria/' %} class="active" {% endif %}><a href="{% url 'galeria' %}">Finca</a></li>
+        <li {% if request.path == '/productos/' %} class="active" {% endif %}><a href="{% url 'productos' %}">Productos</a></li>
+        {% if user.id %}
+        <li {% if request.path == '/carrito/' %} class="active" {% endif %}><a href="{% url 'carritos:carrito' %}">{{carrito.productos.count}}  <i class="icofont-shopping-cart"></i> Compras</a></li>
+        {% endif %}
+        <li {% if request.path == '/contacto/' %} class="active" {% endif %}><a href="{% url 'contacto' %}">Contactos</a></li>
+        {% if user.is_authenticated %}
+        <li {% if request.path == '/productos/pedidos/' %} class="active" {% endif %}><a href="{% url 'pedidos'%}">Pedidos | {{request.user.username}}</a></li>
+        <li><a href="{% url 'salir' %}">Salir</a></li>
+        {% else %}
+        <li><a href="{% url 'ingresar' %}">Iniciar Sesión</a></li>
+        {% endif %}
+                
+      </ul>
+    </nav>
+    <!-- .nav-menu -->
+  </div>
+</header>
+<!-- End Header -->
+<div id="google_translate_element" style="background: rgba(103, 176, 209, 0.8);margin-right: 20px;position: absolute;right: 0;top: 100px;z-index: 1;"></div>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE,includedLanguages: "es,en,ru"
+    }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

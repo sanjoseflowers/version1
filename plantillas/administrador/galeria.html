@@ -1,0 +1,44 @@
+{% extends 'index_admin.html' %}
+
+{% block contenido %}
+     <div class="card-body">
+     <h2 class="text-center">Galería de fotos
+     </h2>
+      <a href="{% url 'galeria_crear' %}" class="btn btn-success">Añadir</a>
+      <br>
+      <br>
+
+    <div class="card">
+        <div class="card-header bg-info">
+            Galería
+        </div>
+        <table>
+            <div class="card-body">
+                <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-uppercase" style="width: 30%;">Categoría</th>
+                    <th scope="col" class="text-uppercase" style="width: 30%;">Descripción</th>
+                    <th scope="col" class="text-uppercase" style="width: 20%;">Imagen</th>
+                    <th scope="col" style="width: 10%;">OPCIONES</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for galery in object_list %}
+                    <tr>
+                        <td>{{ galery.categoria.nombre }} </th>
+                        <td>{{ galery.descripcion }} </th>
+                        <td><img src="{{ galery.imagen1.url }}" width="70"></img> </th>
+                        <td>
+                            <a href="{% url 'galeria_actualizar' galery.id %}" class="btn btn-warning btn-sm"> <i class="fas fa-edit"></i></a>
+                            <a href="{% url 'galeria_eliminar' galery.id %}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock contenido %}

@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+<br><br><br><br><br>
+{% if messages %} 
+  {% for message in messages %}
+  <div class="alert {% if message.tags == 'success' %} alert-success {% else %} alert-danger {% endif %} text-center">
+  {{message}}
+  <button type="button" class="close" data-dismiss="alert">X</button>
+  </div>
+  {% endfor %} 
+{% endif%}
+
+{% if carrito.productos.exists %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+<script>
+var inicio = 1; //se inicializa una variable en 0
+
+function aumentar(i,p){
+
+var cantidad = parseInt($('#cantidad_'+i).val()) + parseInt(inicio);
+
+  $.ajax({
+    url: 'aumentar',
+    type: 'POST',
+    data: {
+      csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+      cantidad: cantidad,
+      id: i
+    },
+    success: function(r){
+      if(!r.error){
+        $('#cantidad_'+i).val(cantidad);
+        var c = $('#cantidad_'+i).val();
+        var z = $('#precio_'+p).val();
+        var total = parseFloat(c) * parseFloat(z);
+        $('#subtotal_'+p).html(total.toFixed(2));
+        $('#total_carrito').html(r.mgs.toFixed(2));
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: r.mgs
+        })
+      }
+    }
+  });
+
+}
+
+function disminuir(i,p){
+
+if($('#cantidad_'+i).val() > 1){
+  
+  var cantidad = parseInt($('#cantidad_'+i).val()) - parseInt(inicio); 
+
+  $.ajax({
+    url: 'disminuir',
+    type: 'POST',
+    data: {
+      csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+      cantidad: cantidad,
+      id: i
+    },
+    success: function(r){
+      if(!r.error){
+        $('#cantidad_'+i).val(cantidad);
+        var c = $('#cantidad_'+i).val();
+        var z = $('#precio_'+p).val();
+        var total = parseFloat(c) * parseFloat(z);
+        $('#subtotal_'+p).html(total.toFixed(2));
+        $('#total_carrito').html(r.mgs.toFixed(2));
+      }else{
+        alert('Error');
+      }
+    }
+  });
+}
+}
+</script>
+<h2 class="text-center">Carrito de compras</h2>
+<div class="row">
+    <div class="col-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Clavel</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad/Cajas</th>
+            <th scope="col">Precio</th>
+            <th scope="col">SubTotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for producto in carrito.productos.all %}
+            <tr>
+              <th>{{ forloop.counter }}</th>
+              <th>{% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" height="50" width="100">
+                {% endif %}
+              </th>
+              <th><h5 class="text-left">{{ producto.titulo }}</h5>
+              {% include 'carrito/eliminar.html' %}
+              </th>
+              <th>
+                
+                {% for item in items %}
+                  {% if item.producto_id == producto.id %}
+                    <input type='text' style="width:50px;text-align: center;" id="cantidad_{{ item.id }}" value="{{ item.cantidad }}" readonly>
+                    <button id='aumentar' onclick="aumentar('{{ item.id }}','{{ producto.id }}')">+</button>
+                    <button id='disminuir' onclick="disminuir('{{ item.id }}','{{ producto.id }}')">-</button>
+                  {% endif %}
+                {% endfor %}
+
+                {% csrf_token %}
+              </th>
+              <th>
+                <span class="font-weight-bold text-success">{{producto.precio}}</span><input type="hidden" id="precio_{{producto.id}}" value="{{producto.precio}}">
+              </th>
+              <th>
+                <span class="font-weight-bold text-success" id="subtotal_{{producto.id}}"></span>
+                {% for item in items %}
+                  {% if item.producto_id == producto.id %}
+                    <script type="text/javascript">
+                      var total = parseFloat('{{ item.cantidad }}') * parseFloat('{{ producto.precio }}'); 
+                      var input = 'subtotal_'+'{{producto.id}}'; 
+                      document.getElementById(input).innerHTML = total.toFixed(2);
+                    </script>
+                  {% endif %}
+                {% endfor %}
+
+              </th>
+            </tr>
+          {% endfor%}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="font-weight-bold" align="center" ><h2><b>
+                    Total ( {{carrito.productos.count }} ) : $ <span id="total_carrito"> {{carrito.total }}</span>
+                </div></h2></b>
+                <div class="mt-2" align="center" >
+                    <a href="{% url 'direcciones:crear' %}" class="btn btn-warning">Realizar pedido</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+<br>
+<br>
+    <div class="col">
+      <h5 class="h3 text-center text-uppercase">Carrito de compras vacío <br><br>
+      <a href="{% url 'productos' %}">Ver productos</a>
+      </h5>
+      
+    </div>
+
+
+{% endif %}
+</div>
+{% endblock content %}

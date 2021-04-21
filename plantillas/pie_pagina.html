@@ -1,0 +1,33 @@
+{% load static %}
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-info" data-aos="fade-up" data-aos-delay="50">
+            <h3>SAN JOSÉ FLOWERS</h3>
+            <p class="pb-3"><em>Calidad y exelencia.</em></p>
+            <p>
+              {{ contacto.direccion }}<br /><br />
+              <strong>Teléfonos:</strong> (+593) {{ contacto.telefono1 }} (+593)
+              {{ contacto.telefono2 }} <br />
+              <strong>Email:</strong> {{ contacto.correo1 }}<br />
+              <strong>Ventas:</strong> {{ contacto.correo2 }}
+            </p>
+            <div class="social-links mt-3">
+              <a href="https://www.facebook.com/claveles21" class="facebook"
+                ><i class="bx bxl-facebook"></i
+              ></a>
+              <a href="{{ contacto.whatsapp }}" class="whatsapp"
+                ><i class="bx bxl-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->

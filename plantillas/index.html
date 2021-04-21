@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+{% include 'navbar.html' %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+  <div class="hero-container" data-aos="fade-up">
+    <h1 style="color:#7FC8E3" >Bienvenidos</h1>
+    <h1 style="color:#7FC8E3">San José Flowers</h1>
+    <h2 style="color:#7FC8E3">Latacunga - Cotopaxi</h2>
+    <a href="#about" class="btn-get-started scrollto"
+      ><i class="bx bx-chevrons-down"></i
+    ></a>
+  </div>
+</section>
+<!-- End Hero -->
+
+<main id="main">
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="row no-gutters">
+        <div
+          class="content col-xl-12 d-flex align-items-stretch"
+          data-aos="fade-up"
+        >
+          <div class="content">
+            <h3 class="text-center">¿Quienes Somos?</h3>
+            <div class="text-center"> <img src="{% static 'logo.jpeg' %} " height="250" ></div>
+            <center><h5> <p>{{ acerca.descripcion }}</p> </h5></center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End About Section -->
+  
+
+</main>
+<!-- End #main -->
+{% include 'pie_pagina.html' %}
+<a href="#" class="back-to-top"><i class="icofont-simple-up
+"></i></a>
+{% endblock content %}

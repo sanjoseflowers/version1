@@ -1,0 +1,54 @@
+{% extends 'index_admin.html' %}
+
+{% block contenido %}
+     <div class="card-body">
+     <h2 class="text-center">Información de los productos de la página
+     </h2>
+      <a href="{% url 'producto_crear' %}" class="btn btn-success">Añadir</a>
+      <br>
+      <br>
+
+    <div class="card">
+        <div class="card-header bg-info">
+            Productos
+        </div>
+        <table>
+            <div class="card-body">
+                <h5 class="card-title">Lista de productos</h5>
+                <p class="card-text">
+                <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-uppercase" style="width: 20%;">Imagen</th>
+                    <th scope="col" class="text-uppercase" style="width: 30%;">Nombre</th>
+                    <th scope="col" class="text-uppercase" style="width: 20%;">Precio</th>
+                    <th scope="col" class="text-uppercase" style="width: 20%;">Cantidad</th>
+                    <th scope="col" class="text-uppercase" style="width: 20%;">Descripción</th>
+                    <th scope="col" class="text-uppercase" style="width: 20%;">Disponibilidad</th>
+                    
+                    <th scope="col" style="width: 10%;">OPCIONES</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for producto in object_list %}
+                    <tr>
+                        <td><img src="{{ producto.imagen.url }}" width="70"></img> </th>
+                        <td>{{ producto.titulo }} </th>
+                        <td>{{ producto.precio }} </th>
+                        <td>{{ producto.cantidad }} </th>
+                        <td>{{ producto.descripcion }} </th>
+                        <td> {% if producto.disponibilidad == "1" %}Disponible {% else %}No Disponible{% endif %}</th>
+                        
+                        <td>
+                            <a href="{% url 'producto_actualizar' producto.id %}" class="btn btn-warning btn-sm"> <i class="fas fa-edit"></i></a>
+                            <a href="{% url 'producto_eliminar' producto.id %}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock contenido %}

@@ -1,0 +1,106 @@
+{% extends 'index_admin.html' %}
+
+{% block contenido %}
+     <div class="card-body">
+     <h2 class="text-center">Información contactos de la página
+     </h2>
+     {% if object_list.count == 0 %}
+      <a href="{% url 'contacto_crear' %}" class="btn btn-success">Añadir</a>
+      {% else %}
+      <br>
+      <br>
+      
+    <div class="card">
+    <div class="card-header bg-info">
+        Contactos
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+        <table class="table">
+        {% for contacto in object_list %}
+        <tr>
+            <th width="15%">
+                Dirección:
+            </th>
+            <td>
+                {{contacto.direccion}}
+            </td>
+        </tr>
+        <tr>
+            <th width="15%">
+                Teléfono 1:
+            </th>
+            <td>
+                {{contacto.telefono1}}
+            </td>
+        </tr>
+
+        <tr>
+            <th width="15%">
+                Teléfono 2:
+            </th>
+            <td>
+                {{contacto.telefono2}}
+            </td>
+        </tr>
+
+        <tr>
+            <th width="15%">
+                Correo 1:
+            </th>
+            <td>
+                {{contacto.correo1}}
+            </td>
+        </tr>
+
+        <tr>
+            <th width="15%">
+                Correo 2:
+            </th>
+            <td>
+                {{contacto.correo2}}
+            </td>
+        </tr>
+
+        <tr>
+            <th width="15%">
+                Mapa:
+            </th>
+            <td>
+                {{contacto.mapa}}
+            </td>
+        </tr>
+
+        <tr>
+            <th width="15%">
+                Facebook:
+            </th>
+            <td>
+                {{contacto.facebbok}}
+            </td>
+        </tr>
+
+        <tr>
+            <th width="15%">
+                Whatsapp:
+            </th>
+            <td>
+                {{contacto.whatsapp}}
+            </td>
+        </tr>
+    </table>
+    <br>
+    </p>
+    </div>
+    </div>
+    
+    <a href="{% url 'contacto_actualizar' contacto.id %}" class="btn btn-warning btn-sm"> <i class="fas fa-edit"></i>Editar</a>
+    <a href="{% url 'contacto_eliminar' contacto.id %}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i>Eliminar</a>
+    {% endfor %}
+        
+
+    
+     {% endif %}
+      
+
+{% endblock contenido %}

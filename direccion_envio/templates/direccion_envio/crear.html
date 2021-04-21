@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <br>
+    <br>
+    <br>
+    <br>
+    {% include 'mensajes.html' %}
+    <div class="col">
+        <div class="h3 text-center">
+        Agregar dirección de envío :
+        </div>
+        <div class="">
+            {% include 'direccion_envio/form.html' %}
+        </div>
+    </div>
+{% endblock content %}

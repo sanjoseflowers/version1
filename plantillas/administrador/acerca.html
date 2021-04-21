@@ -1,0 +1,36 @@
+{% extends 'index_admin.html' %} {% block contenido %}
+<div class="card-body">
+  <h2 class="text-center">Información acerca de la página</h2>
+  {% if object_list.count == 0 %}
+  <a href="{% url 'acerca_crear' %}" class="btn btn-success">Añadir</a>
+  {% else %}
+  <br />
+  <br />
+
+  {% for acerca in object_list %}
+
+  <div class="card">
+    <div class="card-header bg-info">Acerca</div>
+    <div class="card-body">
+      <p class="card-text">
+        <div class="h5">
+            <label for="">Titulo : </label>
+            {{ acerca.titulo }}
+        </div>
+
+        <div class="h5">
+            <label for="">Descripción : </label>
+            {{ acerca.descripcion }}
+        </div>
+      </p>
+    </div>
+  </div>
+
+  <a href="{% url 'acerca_actualizar' acerca.id %}"
+    class="btn btn-warning btn-sm">
+    <i class="fas fa-edit"></i>Editar</a>
+  <a href="{% url 'acerca_eliminar' acerca.id %}" class="btn btn-danger btn-sm">
+    <i class="fas fa-trash"></i>Eliminar</a>
+
+  {% endfor %} {% endif %} {% endblock contenido %}
+</div>

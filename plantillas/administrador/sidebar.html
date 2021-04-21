@@ -1,0 +1,76 @@
+<!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="mt-2 pb-2 mb-2 text-center text-capitalize">
+        <h6 class="text-white text-uppercase">{{ request.user.username }}</h6>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-columns"></i>
+              <p>
+                Página Web
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'acerca_lista' %}" class="nav-link {% if request.path == '/iniciar_sesion/acerca/' %}active{% endif %}">
+                  <i class="fas fa-info nav-icon"></i>
+                  <p>Acerca</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'galeria_lista' %}" class="nav-link {% if request.path == '/iniciar_sesion/galeria/' %}active{% endif %}">
+                  <i class="fas fa-images nav-icon"></i>
+                  <p>Galeria</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'productos_lista' %}" class="nav-link {% if request.path == '/iniciar_sesion/productos_list/' %}active{% endif %}">
+                  <i class="fas fa-box-open nav-icon"></i>
+                  <p>Productos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'contacto_lista' %}" class="nav-link {% if request.path == '/iniciar_sesion/contactos/' %}active{% endif %}">
+                  <i class="fas fa-address-book nav-icon"></i>
+                  <p>Contáctos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+                    
+        </ul>
+
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p>
+                PEDIDOS
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'pedido_lista' %}" class="nav-link">
+                  <i class="fas fa-list-ol nav-icon"></i>
+                  <p>Todos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+                    
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->

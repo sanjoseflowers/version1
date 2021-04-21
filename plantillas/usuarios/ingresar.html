@@ -1,0 +1,81 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>FLOWERS | INICIO</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'librerias/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  {% comment %} <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> {% endcomment %}
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'librerias/dist/css/adminlte.min.css' %}  ">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <div class="col-lg-12 col-sm-12">
+      <img src="{% static 'logo.jpeg' %}" alt="Admin" class="img-fluid" style="width: 360px">
+    </div>
+    <div class="col-lg-12 col-sm-12 text-center">
+    </div>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">{{ title }}</p>
+        {% include 'errores.html' %}
+        <style>
+        #header {display: none};
+        </style>
+        {% include 'navbar.html' %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+        <label for="username">Usuario: </label>
+        <input type="text" name="username" class="form-control" placeholder="Usuario" />
+        </div>
+
+        <div class="form-group">
+        <label for="password">Contraseña: </label>
+        <input type="password" name="password" class="form-control" placeholder="Contraseña"/>
+        </div>
+
+        <div class="btn-group" role="group">
+            <button type="submit" class="btn btn-success">Ingresar</button>
+            <button type="submit" style="border:0px; weigth:10px;">  </button>
+            <a href="{% url 'registrar' %}" class="btn btn-info">Registrar</a>
+        </div>
+        
+        <br>
+        <br>
+        <a href="{% url 'inicio' %}">Atras</a>
+
+    </form>
+
+      <!-- /.social-auth-links -->
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+<style type="text/css">
+  #google_translate_element {display: none !important;}
+</style>
+<!-- jQuery -->
+<script src="{% static 'librerias/plugins/jquery/jquery.min.js' %} "></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'librerias/plugins/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+<!-- AdminLTE App -->
+<script src="{% static 'librerias/dist/js/adminlte.min.js' %} "></script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% block content %} {% include 'navbar.html' %}
+<br />
+<br />
+<br />
+<br />
+<style type="text/css">
+  .nav-tabs>li>a.active, .nav-tabs>li.active>a:focus, .nav-tabs>li>a.active:hover {
+    border-bottom: 3px solid #5cfeea;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-transform: uppercase;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+  }
+  .nav-tabs>li>a {
+    padding-left: 30px;
+    padding-right: 30px;
+    text-transform: uppercase;
+  }
+</style>
+<!-- ======= gallery Section ======= -->
+<section id="gallery" class="gallery">
+  <div class="container">
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <h2 style="text-transform: uppercase;">Galería de Fotos</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-tabs nav-justified">
+          {% for c in categoria %}
+            {% if forloop.counter == 1 %}
+            <li><a data-toggle="tab" href="#menu_{{c.id}}" class="active">{{c.nombre}}</a></li>
+            {% else %}
+            <li><a data-toggle="tab" href="#menu_{{c.id}}">{{c.nombre}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <br>
+        <div class="tab-content">
+          {% for c in categoria %}
+            {% if forloop.counter == 1 %}
+            <div id="menu_{{c.id}}" class="tab-pane fade active show">
+            {% else %}
+            <div id="menu_{{c.id}}" class="tab-pane fade">
+            {% endif %}
+              <div class="row">
+                {% for g in galeria %}
+                  {% if c.id == g.categoria.id %}
+                    <div class="col-lg-4 col-md-6 products-item filter-web mt-2">
+                      <div class="products-wrap">
+                        <center><img src="{{ g.imagen1.url }}" height="200" alt="" /></center>
+                      </div>
+                      <br>
+                      <center>
+                        <strong>
+                          <label> {{g.descripcion}} </label>
+                        </strong>
+                      </center>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br />
+<br />
+<br />
+<br />
+<!-- End gallery Section -->
+
+{% include 'pie_pagina.html' %} {% endblock content %}

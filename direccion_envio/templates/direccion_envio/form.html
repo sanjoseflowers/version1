@@ -1,0 +1,17 @@
+<form method="post">
+{% csrf_token %}
+{% for field in form %}
+    <div>
+    {{ field.label_tag}}
+    {{ field}}
+
+    {% if fields.errors %}
+        {{ field.errors }}
+    {% endif %}
+    </div>
+{% endfor %}
+<br>
+<b><p>Nota: Para coordinar el pago del pedido debe conctactarse al correo: sanjoseflowers6@gmail.com</p></b>
+<button type="submit" class="btn btn-info">Confirmar</button>
+
+</form>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="col">
+        <div class="h3 text-center">
+            Mis Pedidos
+        </div>
+        <div>
+        {% for pedido in object_list %}
+            {% if pedido.carrito.usuario_relacionado == request.user %}
+                {% include 'pedidos/pedido.html' %}
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    
+{% endblock content %} 

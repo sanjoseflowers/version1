@@ -1,0 +1,42 @@
+{% extends 'index_admin.html' %}
+
+{% block contenido %}
+     <div class="card-body">
+     <h2 class="text-center">Categorías de la página
+     </h2>
+        
+      <a href="{% url 'galeria_crear' %}" class="btn btn-info">Regresar</a>
+      <a href="{% url 'categoria_crear' %}" class="btn btn-success">Añadir</a>
+      <br>
+      <br>
+
+    <div class="card">
+        <div class="card-header bg-info">
+            Categoría
+        </div>
+        <table>
+            <div class="card-body">
+                <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-uppercase" style="width: 30%;">Nombre</th>
+                    <th scope="col" style="width: 10%;">OPCIONES</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for categoria in object_list %}
+                    <tr>
+                        <td>{{ categoria.nombre }} </th>
+                        <td>
+                            <a href="{% url 'categoria_actualizar' categoria.id %}" class="btn btn-warning btn-sm"> <i class="fas fa-edit"></i></a>
+                            <a href="{% url 'categoria_eliminar' categoria.id %}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock contenido %}

@@ -1,0 +1,166 @@
+<div class="card mb-2">
+  <div class="card-header">
+    <div class="row">
+
+      <div class="col-3">
+        <center>
+          <div class="text-uppercase">
+            Pedido realizado
+          </div>
+          <div class="">
+            {{ pedido.created_at }}
+          </div>
+        </center>
+      </div>
+
+      <div class="col-3">
+        <div class="text-uppercase">
+          Total
+        </div>
+        <div class="">
+          {{ pedido.carrito.total }}
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="text-uppercase">
+          Enviado a 
+        </div>
+        <div class="">
+          {{pedido.carrito.user.username}}
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="text-uppercase">
+          Estado
+        </div>
+      </div>
+    </div>
+  </div>
+  {% for cp in pedido.carrito.productos_relacionados %}
+    {%with producto=cp.producto%}
+      <div class="row">
+        <div class="col-3 mt-1">
+          {% if producto.imagen %}
+            <center>
+              <img src="{{ producto.imagen.url}}" width="50" height="50">
+            </center>
+          {% endif %}
+        </div>  
+
+        <div class="col-3 mt-2">
+          <div class="">
+            {{ producto.titulo }}
+          </div>
+          <div class="text-success">
+            $ {{producto.precio}}
+          </div>
+        </div>
+
+        <div class="col-3">
+          <div class="">
+            Cantidad
+          </div>
+          <div class="">
+            {% if items %}
+              {% for item in items %}
+                {% if item.producto_id == producto.id %}
+                  {{ item.cantidad }}
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {% for item in datos %}
+                {% if pedido.carrito_id == item.carrito_id %}
+                  {% if item.producto_id == producto.id %}
+                    {{ item.cantidad }}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-3 mt-1">
+          <div class="btn btn-{% if pedido.estado == 'PENDIENTE' %}warning{% elif pedido.estado == 'COMPLETADO'%}success{%else%}danger{%endif%}">
+            {{pedido.estado}}
+          </div>
+        </div>
+      </div>
+    {%endwith%}
+  {% endfor%}
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      {% if datos %}
+      {% if pedido.pago %}
+      <div class="alert alert-success text-center">
+        Pago Enviado
+      </div>
+      {% else %}
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_{{ pedido.id }}" style="float: right;margin-right: 20px;margin-bottom: 20px;">
+          Realizar Pago
+        </button>
+      <!-- Modal -->
+      <div class="modal fade" id="modal_{{ pedido.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Subir Pago</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="{% url 'direcciones:pago' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ pedido.id }}">
+                <div class="row">
+                  <div class="col-12">
+                    <input type="file" name="pago" class="form-control-file" required>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-12">
+                    <input type="submit" class="btn btn-info" style="width: 100%;" value="Enviar">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% else %}
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_{{ pedido.id }}" style="float: right;margin-right: 20px;margin-bottom: 20px;">
+          Visualizar Pago
+        </button>
+      <!-- Modal -->
+      <div class="modal fade" id="modal_{{ pedido.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Visualizar Pago</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {% if pedido.pago %}
+                <center>
+                  <img src="{{ pedido.pago.url}}" style="width: 80%;">  
+                </center>
+              {% else %}
+              <center>
+                <h2>Pago no realizado</h2>
+              </center>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
